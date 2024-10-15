@@ -56,13 +56,25 @@ function firstPageAnim(){
 }
 var kuchbhi= document.querySelectorAll(".elem")
 kuchbhi.forEach(function(elem){
+    var rotate=0;
+    var diffrot=0;
+    elem.addEventListener("mouseleave",function(dets){
+        gsap.to(elem.querySelector("img"),{
+            opacity:0,
+            ease:Power3,
+            duration:.5
+        })
+    })
     elem.addEventListener("mousemove",function(dets){
         var diff=(dets.clientY-elem.getBoundingClientRect().top);
+        diffrot= dets.clientX-rotate;
+        rotate=dets.clientX;
         gsap.to(elem.querySelector("img"),{
-            ease:Power1.easeOut,
+            ease:Power3.easeOut,
             opacity:1,
             top:diff,
-            left:dets.clientX   
+            left:dets.clientX,
+            rotate: gsap.utils.clamp(-20,20,diffrot*.5)
         });
     });
 });
